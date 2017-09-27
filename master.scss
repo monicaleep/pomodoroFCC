@@ -1,0 +1,33 @@
+.button-holder {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+
+}
+
+.alter {
+  border: none;
+  outline: none;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+button{
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.main {
+  width: 70%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.countdown{
+  font-size: 30px;
+  line-height: 45px;
+}
