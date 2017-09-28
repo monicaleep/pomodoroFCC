@@ -4,6 +4,7 @@ const breakTime = document.querySelector('[name="break-time"]');
 const alter = document.querySelectorAll('.alter');
 const timeLeft = document.querySelector('.countdown');
 const pause = document.querySelector('[name="pause"]');
+const info = document.querySelector('.info');
 
 const controls = {
   'plus-work': workTime,
@@ -13,7 +14,7 @@ const controls = {
 };
 let countdown;
 let isWork;
-let isStarted = false;
+let isStarted = false; // flag to disable pause if timer not running
 let now;
 let then;
 let secondsLeft = 25 * 60;
@@ -32,6 +33,11 @@ function makeTimer(duration) {
   // setup variable delcarations
   paused = false;
   isStarted = true;
+  if (isWork) {
+    info.textContent = 'We are working hard!';
+  } else {
+    info.textContent = "Let's enjoy our break";
+  }
   clearInterval(countdown);
   now = Date.now();
   then = now + (duration * 1000);
@@ -68,14 +74,21 @@ function togglePause() {
     // pause timer
     clearInterval(countdown);
     this.textContent = 'Resume';
+    info.textContent = 'We taking a pause!';
   }
   this.classList.toggle('paused');
 }
 
 function startTimer() {
+  if (paused) {
+    pause.classList.remove('paused');
+    pause.textContent = 'Pause';
+  }
   const time = this.textContent * 60;
   if (this === workTime) {
     isWork = true;
+  } else {
+    isWork = false;
   }
   makeTimer(time);
 }
