@@ -9,6 +9,11 @@
     .button-holder .alter:hover {
       cursor: pointer; }
 
+.info {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 20px; }
+
 .text {
   position: absolute; }
 
@@ -61,7 +66,7 @@ button {
   width: 100%;
   text-align: center;
   font-size: 30px;
-  line-height: 100px; }
+  line-height: 80px; }
 
 .paused {
   background-color: red; }
