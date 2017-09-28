@@ -54,6 +54,7 @@ function makeTimer(duration) {
         isWork = false;
       } else {
         // else the break finished and timer is over
+        info.textContent = "Let's do another round!";
         isStarted = false;
       }
     }
