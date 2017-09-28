@@ -13,6 +13,7 @@ const controls = {
 };
 let countdown;
 let isWork;
+let isStarted = false;
 let now;
 let then;
 let secondsLeft = 25 * 60;
@@ -30,6 +31,7 @@ function displayTimeLeft(seconds) {
 function makeTimer(duration) {
   // setup variable delcarations
   paused = false;
+  isStarted = true;
   clearInterval(countdown);
   now = Date.now();
   then = now + (duration * 1000);
@@ -44,6 +46,9 @@ function makeTimer(duration) {
       if (isWork) {
         makeTimer(breakTime.textContent * 60);
         isWork = false;
+      } else {
+        // else the break finished and timer is over
+        isStarted = false;
       }
     }
     displayTimeLeft(secondsLeft);
@@ -51,6 +56,9 @@ function makeTimer(duration) {
 }
 
 function togglePause() {
+  if (!isStarted) {
+    return;
+  }
   paused = !paused;
   if (paused === false) {
     // restart the timer
