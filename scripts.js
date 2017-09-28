@@ -3,6 +3,8 @@ const workTime = document.querySelector('[name="work-time"]');
 const breakTime = document.querySelector('[name="break-time"]');
 const alter = document.querySelectorAll('.alter');
 const timeLeft = document.querySelector('.countdown');
+const pause = document.querySelector('[name="pause"]');
+
 const controls = {
   'plus-work': workTime,
   'minus-work': workTime,
@@ -11,6 +13,11 @@ const controls = {
 };
 let countdown;
 let isWork;
+let now;
+let then;
+let secondsLeft = 25 * 60;
+let paused = false;
+
 
 function displayTimeLeft(seconds) {
   const min = (seconds - (seconds % 60)) / 60;
@@ -21,15 +28,19 @@ function displayTimeLeft(seconds) {
 }
 
 function makeTimer(duration) {
+  // setup variable delcarations
+  paused = false;
   clearInterval(countdown);
-  const now = Date.now();
-  const then = now + (duration * 1000);
+  now = Date.now();
+  then = now + (duration * 1000);
   displayTimeLeft(duration);
+  // run the timer
   countdown = setInterval(() => {
-    const secondsLeft = Math.round((then - Date.now()) / 1000);
+    secondsLeft = Math.round((then - Date.now()) / 1000);
     if (secondsLeft <= 0) {
       displayTimeLeft(0);
       clearInterval(countdown);
+      // automatically start break after timer ends
       if (isWork) {
         makeTimer(breakTime.textContent * 60);
         isWork = false;
@@ -37,6 +48,20 @@ function makeTimer(duration) {
     }
     displayTimeLeft(secondsLeft);
   }, 1000);
+}
+
+function togglePause() {
+  paused = !paused;
+  if (paused === false) {
+    // restart the timer
+    this.textContent = 'Pause';
+    makeTimer(secondsLeft);
+  } else {
+    // pause timer
+    clearInterval(countdown);
+    this.textContent = 'Resume';
+  }
+  this.classList.toggle('paused');
 }
 
 function startTimer() {
@@ -61,3 +86,4 @@ function changeTime() {
 
 alter.forEach(a => a.addEventListener('click', changeTime));
 buttons.forEach(button => button.addEventListener('click', startTimer));
+pause.addEventListener('click', togglePause);

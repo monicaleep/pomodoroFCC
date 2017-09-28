@@ -37,7 +37,8 @@ h1 {
 
 button {
   font-family: 'Gentium Basic';
-  background: transparent; }
+  background: transparent;
+  font-size: 22px; }
   button:focus {
     outline: none; }
   button:hover {
@@ -57,7 +58,12 @@ button {
   flex-wrap: wrap; }
 
 .countdown {
+  width: 100%;
+  text-align: center;
   font-size: 30px;
   line-height: 100px; }
+
+.paused {
+  background-color: red; }
 
 /*# sourceMappingURL=master.css.map */
