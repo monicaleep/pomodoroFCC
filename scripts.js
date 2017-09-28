@@ -75,7 +75,7 @@ function togglePause() {
     // pause timer
     clearInterval(countdown);
     this.textContent = 'Resume';
-    info.textContent = 'We taking a pause!';
+    info.textContent = 'We are taking a pause!';
   }
   this.classList.toggle('paused');
 }
