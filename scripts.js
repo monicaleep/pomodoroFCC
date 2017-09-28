@@ -1,6 +1,6 @@
 const buttons = document.querySelectorAll('.time');
-const workTime = document.querySelector('#work-time');
-const breakTime = document.querySelector('#break-time');
+const workTime = document.querySelector('[name="work-time"]');
+const breakTime = document.querySelector('[name="break-time"]');
 const alter = document.querySelectorAll('.alter');
 const timeLeft = document.querySelector('.countdown');
 const controls = {
@@ -10,6 +10,7 @@ const controls = {
   'minus-break': breakTime,
 };
 let countdown;
+let isWork;
 
 function displayTimeLeft(seconds) {
   const min = (seconds - (seconds % 60)) / 60;
@@ -29,6 +30,10 @@ function makeTimer(duration) {
     if (secondsLeft <= 0) {
       displayTimeLeft(0);
       clearInterval(countdown);
+      if (isWork) {
+        makeTimer(breakTime.textContent * 60);
+        isWork = false;
+      }
     }
     displayTimeLeft(secondsLeft);
   }, 1000);
@@ -36,6 +41,9 @@ function makeTimer(duration) {
 
 function startTimer() {
   const time = this.textContent * 60;
+  if (this === workTime) {
+    isWork = true;
+  }
   makeTimer(time);
 }
 
